@@ -10,7 +10,7 @@ import csv
 load_dotenv()
 
 SYSTEM_MSG = "system-message.txt"
-BINS = "v2.txt"
+GENRES = "genres.txt"
 
 def get_playlist_titles(spotify, url):
     playlist_id = url.split("playlist/")[1].split('?')[0]
@@ -37,14 +37,14 @@ def get_classify_message(songs):
 
 # Load system message and bins
 
-with open(BINS, 'r') as f:
+with open(GENRES, 'r') as f:
     reader = csv.reader(f)
-    bins = [x.strip().lower() for x in list(reader)[0]]
+    genres = [x.strip().lower() for x in list(reader)[0]]
 
 jinja = jinja2.Environment()
 
 with open(SYSTEM_MSG, 'r') as f:
-    system_message = jinja.from_string(f.read()).render(bins = bins)
+    system_message = jinja.from_string(f.read()).render(genres = genres)
 
 # Initiate spotify and openai clients
 
